@@ -6,26 +6,34 @@ part of 'contact_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-OfflineContactInfo _$OfflineContactInfoFromJson(Map<String, dynamic> json) =>
-    OfflineContactInfo(
+ContactInfo _$ContactInfoFromJson(Map<String, dynamic> json) => ContactInfo(
       id: json['id'] as String,
+      contactSourceType:
+          $enumDecode(_$ContactSourceTypeEnumMap, json['contactSourceType']),
       name: json['name'] as String?,
-      phone: json['phone'] as String?,
+      phoneNumber: json['phoneNumber'] as String?,
+      bloodGroup: $enumDecodeNullable(_$BloodGroupEnumMap, json['bloodGroup']),
       locationCoordinates: json['locationCoordinates'] == null
           ? null
           : LatLong.fromJson(
               json['locationCoordinates'] as Map<String, dynamic>),
-      bloodGroup: $enumDecodeNullable(_$BloodGroupEnumMap, json['bloodGroup']),
     );
 
-Map<String, dynamic> _$OfflineContactInfoToJson(OfflineContactInfo instance) =>
+Map<String, dynamic> _$ContactInfoToJson(ContactInfo instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'contactSourceType':
+          _$ContactSourceTypeEnumMap[instance.contactSourceType]!,
       'name': instance.name,
-      'phone': instance.phone,
+      'phoneNumber': instance.phoneNumber,
       'locationCoordinates': instance.locationCoordinates,
       'bloodGroup': _$BloodGroupEnumMap[instance.bloodGroup],
     };
+
+const _$ContactSourceTypeEnumMap = {
+  ContactSourceType.offline: 'offline',
+  ContactSourceType.online: 'online',
+};
 
 const _$BloodGroupEnumMap = {
   BloodGroup.APositive: 'APositive',
@@ -39,26 +47,3 @@ const _$BloodGroupEnumMap = {
   BloodGroup.Other: 'Other',
   BloodGroup.Unknown: 'Unknown',
 };
-
-OnlineContactInfo _$OnlineContactInfoFromJson(Map<String, dynamic> json) =>
-    OnlineContactInfo(
-      id: json['id'] as String,
-      name: json['name'] as String?,
-      phone: json['phone'] as String?,
-      locationCoordinates: json['locationCoordinates'] == null
-          ? null
-          : LatLong.fromJson(
-              json['locationCoordinates'] as Map<String, dynamic>),
-      bloodGroup: $enumDecodeNullable(_$BloodGroupEnumMap, json['bloodGroup']),
-      isAnonVolunteer: json['isAnonVolunteer'] as bool?,
-    );
-
-Map<String, dynamic> _$OnlineContactInfoToJson(OnlineContactInfo instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'phone': instance.phone,
-      'locationCoordinates': instance.locationCoordinates,
-      'bloodGroup': _$BloodGroupEnumMap[instance.bloodGroup],
-      'isAnonVolunteer': instance.isAnonVolunteer,
-    };

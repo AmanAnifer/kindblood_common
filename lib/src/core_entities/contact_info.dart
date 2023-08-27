@@ -3,61 +3,36 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'contact_info.g.dart';
 
-abstract class ContactInfo extends Equatable {
-  String get id;
-  String? get name;
-  String? get phone;
-  LatLong? get locationCoordinates;
-  BloodGroup? get bloodGroup;
-  const ContactInfo();
-  @override
-  List<Object?> get props => [id, name, phone, locationCoordinates, bloodGroup];
-}
+enum ContactSourceType { offline, online }
 
 @JsonSerializable()
-class OfflineContactInfo extends ContactInfo {
-  @override
+class ContactInfo extends Equatable {
   final String id;
-  @override
+  final ContactSourceType contactSourceType;
   final String? name;
-  @override
-  final String? phone;
-  @override
+  final String? phoneNumber;
   final LatLong? locationCoordinates;
-  @override
   final BloodGroup? bloodGroup;
-  const OfflineContactInfo({
+  const ContactInfo({
     required this.id,
+    required this.contactSourceType,
     this.name,
-    this.phone,
-    this.locationCoordinates,
+    this.phoneNumber,
     this.bloodGroup,
+    this.locationCoordinates,
   });
-}
+  @override
+  List<Object?> get props => [
+        id,
+        contactSourceType,
+        name,
+        phoneNumber,
+        locationCoordinates,
+        bloodGroup
+      ];
 
-@JsonSerializable()
-class OnlineContactInfo extends ContactInfo {
-  @override
-  final String id;
-  @override
-  final String? name;
-  @override
-  final String? phone;
-  @override
-  final LatLong? locationCoordinates;
-  @override
-  final BloodGroup? bloodGroup;
-  final bool? isAnonVolunteer;
-  const OnlineContactInfo(
-      {required this.id,
-      this.name,
-      this.phone,
-      this.locationCoordinates,
-      this.bloodGroup,
-      this.isAnonVolunteer});
+  factory ContactInfo.fromJson(Map<String, dynamic> json) =>
+      _$ContactInfoFromJson(json);
 
-  factory OnlineContactInfo.fromJson(Map<String, dynamic> json) =>
-      _$OnlineContactInfoFromJson(json);
-
-  Map<String, dynamic> toJson() => _$OnlineContactInfoToJson(this);
+  Map<String, dynamic> toJson() => _$ContactInfoToJson(this);
 }

@@ -6,7 +6,7 @@ part of 'search_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-OnlineSearchInfo _$OnlineSearchInfoFromJson(Map json) => OnlineSearchInfo(
+SearchInfo _$SearchInfoFromJson(Map json) => SearchInfo(
       bloodGroup: $enumDecode(_$BloodGroupEnumMap, json['bloodGroup']),
       userLocation: LatLong.fromJson(json['userLocation'] as Map),
       maxDistance: LengthUnit.fromJson(
@@ -18,7 +18,7 @@ OnlineSearchInfo _$OnlineSearchInfoFromJson(Map json) => OnlineSearchInfo(
       showAnonVolunteers: json['showAnonVolunteers'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$OnlineSearchInfoToJson(OnlineSearchInfo instance) =>
+Map<String, dynamic> _$SearchInfoToJson(SearchInfo instance) =>
     <String, dynamic>{
       'bloodGroup': _$BloodGroupEnumMap[instance.bloodGroup]!,
       'userLocation': instance.userLocation.toJson(),

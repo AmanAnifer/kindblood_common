@@ -5,20 +5,18 @@ import 'package:kindblood_common/core_entities.dart';
 
 enum ContactSearchMode { offline, online }
 
-class SearchFilter {
+class SearchFilter extends SearchInfo {
+  SearchInfo get searchInfo => this;
+
   final ContactSearchMode contactSearchMode;
-  final BloodGroup bloodGroup;
-  final LatLong userLocation;
-  final LengthUnit maxDistance;
-  final bool showAnonVolunteers;
-  final BloodCompatibility? bloodCompatibility;
-  SearchFilter(
-      {required this.contactSearchMode,
-      required this.bloodGroup,
-      required this.userLocation,
-      required this.maxDistance,
-      this.showAnonVolunteers = true,
-      this.bloodCompatibility});
+  SearchFilter({
+    required this.contactSearchMode,
+    required super.bloodGroup,
+    required super.userLocation,
+    required super.maxDistance,
+    super.bloodCompatibility = const Compatible(),
+    super.showAnonVolunteers = true,
+  });
   SearchFilter copyWith({
     ContactSearchMode? contactSearchMode,
     BloodGroup? bloodGroup,
@@ -27,12 +25,23 @@ class SearchFilter {
     bool? showAnonVolunteers,
   }) {
     return SearchFilter(
-        contactSearchMode: contactSearchMode ?? this.contactSearchMode,
-        bloodGroup: bloodGroup ?? this.bloodGroup,
-        userLocation: userLocation ?? this.userLocation,
-        maxDistance: maxDistance ?? this.maxDistance,
-        showAnonVolunteers: showAnonVolunteers ?? this.showAnonVolunteers);
+      contactSearchMode: contactSearchMode ?? this.contactSearchMode,
+      bloodGroup: bloodGroup ?? this.bloodGroup,
+      userLocation: userLocation ?? this.userLocation,
+      maxDistance: maxDistance ?? this.maxDistance,
+      showAnonVolunteers: showAnonVolunteers ?? this.showAnonVolunteers,
+    );
   }
+
+  @override
+  List<Object?> get props => [
+        bloodGroup,
+        userLocation,
+        maxDistance,
+        bloodCompatibility,
+        showAnonVolunteers,
+        contactSearchMode
+      ];
 }
 
 // class OfflineFilter implements SearchFilter {

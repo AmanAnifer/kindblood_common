@@ -7,3 +7,4 @@ export 'contact_info.dart';
 export 'search_filters.dart';
 export 'search_info.dart';
 export 'search_sorting.dart';
+export 'contact_info_with_search_info_context.dart';
